@@ -11,7 +11,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 public class DataBaseCleaner implements BeforeEachCallback {
 
     @Override
-    public void beforeEach(ExtensionContext extensionContext) throws Exception {
+    public void beforeEach(ExtensionContext extensionContext) {
         ApplicationContext context = SpringExtension.getApplicationContext(extensionContext);
         cleanup(context);
     }
