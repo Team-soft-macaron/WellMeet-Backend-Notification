@@ -1,13 +1,22 @@
 package com.wellmeet.webpush.dto;
 
 import com.wellmeet.webpush.domain.PushSubscription;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
 public record SubscribeRequest(
+        @NotBlank
         String endpoint,
+
+        @Valid
         Keys keys
 ) {
 
-    public PushSubscription toDomain(Long userId) {
+    public SubscribeRequest(String endpoint, String p256dh, String auth) {
+        this(endpoint, new Keys(p256dh, auth));
+    }
+
+    public PushSubscription toDomain(String userId) {
         return new PushSubscription(
                 userId,
                 endpoint,
@@ -25,7 +34,10 @@ public record SubscribeRequest(
     }
 
     public record Keys(
+            @NotBlank
             String p256dh,
+
+            @NotBlank
             String auth
     ) {
     }

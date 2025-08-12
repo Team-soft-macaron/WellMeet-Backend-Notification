@@ -20,7 +20,7 @@ public class PushSubscription extends BaseEntity {
     private Long id;
 
     @NotNull
-    private Long userId;
+    private String userId;
 
     @NotNull
     private String endpoint;
@@ -33,7 +33,7 @@ public class PushSubscription extends BaseEntity {
 
     private boolean active;
 
-    public PushSubscription(Long userId, String endpoint, String p256dh, String auth) {
+    public PushSubscription(String userId, String endpoint, String p256dh, String auth) {
         this.userId = userId;
         this.endpoint = endpoint;
         this.p256dh = p256dh;

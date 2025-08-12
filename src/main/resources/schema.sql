@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS push_subscription (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL,
+    user_id VARCHAR(255) NOT NULL,
     endpoint VARCHAR(255) NOT NULL,
     p256dh VARCHAR(100) NOT NULL,
     auth VARCHAR(100) NOT NULL,

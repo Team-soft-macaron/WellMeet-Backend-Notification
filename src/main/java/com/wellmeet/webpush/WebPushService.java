@@ -23,21 +23,21 @@ public class WebPushService {
     private final WebPushSender pushService;
 
     @Transactional
-    public SubscribeResponse subscribe(Long userId, SubscribeRequest request) {
+    public SubscribeResponse subscribe(String userId, SubscribeRequest request) {
         List<PushSubscription> existingSubscriptions = pushSubscriptionRepository.findByUserId(userId);
         Optional<PushSubscription> pushSubscription = existingSubscriptions.stream()
                 .filter(subscription -> subscription.isSameEnpPoint(request.endpoint()))
                 .findAny();
         if (pushSubscription.isPresent()) {
             PushSubscription subscription = pushSubscription.get();
-            return new SubscribeResponse(subscription.getId());
+            return new SubscribeResponse(subscription);
         }
         PushSubscription subscription = request.toDomain(userId);
         PushSubscription savedSubscription = pushSubscriptionRepository.save(subscription);
-        return new SubscribeResponse(savedSubscription.getId());
+        return new SubscribeResponse(savedSubscription);
     }
 
-    public void sendTestPush(Long userId, TestPushRequest request) {
+    public void sendTestPush(String userId, TestPushRequest request) {
         List<PushSubscription> subscriptions = pushSubscriptionRepository.findByUserId(userId);
         if (subscriptions.isEmpty()) {
             throw new WellMeetNotificationException(ErrorCode.SUBSCRIPTION_NOT_FOUND);
@@ -47,7 +47,7 @@ public class WebPushService {
     }
 
     @Transactional
-    public void unsubscribe(Long userId, UnsubscribeRequest request) {
+    public void unsubscribe(String userId, UnsubscribeRequest request) {
         if (!pushSubscriptionRepository.existsByUserIdAndEndpoint(userId, request.endpoint())) {
             throw new WellMeetNotificationException(ErrorCode.SUBSCRIPTION_NOT_FOUND);
         }

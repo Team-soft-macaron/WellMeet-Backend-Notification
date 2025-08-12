@@ -4,6 +4,7 @@ import com.wellmeet.webpush.dto.SubscribeRequest;
 import com.wellmeet.webpush.dto.SubscribeResponse;
 import com.wellmeet.webpush.dto.TestPushRequest;
 import com.wellmeet.webpush.dto.UnsubscribeRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,16 +25,16 @@ public class WebPushController {
     @PostMapping("/subscribe")
     @ResponseStatus(HttpStatus.CREATED)
     public SubscribeResponse subscribe(
-            @RequestBody SubscribeRequest subscribeRequest,
-            @RequestParam Long userId
+            @Valid @RequestBody SubscribeRequest subscribeRequest,
+            @RequestParam String userId
     ) {
         return webPushService.subscribe(userId, subscribeRequest);
     }
 
     @PostMapping("/test-push")
     public void testPush(
-            @RequestBody TestPushRequest testPushRequest,
-            @RequestParam Long userId
+            @Valid @RequestBody TestPushRequest testPushRequest,
+            @RequestParam String userId
     ) {
         webPushService.sendTestPush(userId, testPushRequest);
     }
@@ -41,8 +42,8 @@ public class WebPushController {
     @DeleteMapping("/unsubscribe")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void unsubscribe(
-            @RequestParam Long userId,
-            @RequestBody UnsubscribeRequest request
+            @Valid @RequestBody UnsubscribeRequest request,
+            @RequestParam String userId
     ) {
         webPushService.unsubscribe(userId, request);
     }

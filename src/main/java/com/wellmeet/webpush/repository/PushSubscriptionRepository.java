@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PushSubscriptionRepository extends JpaRepository<PushSubscription, Long> {
 
-    List<PushSubscription> findByUserId(Long userId);
+    List<PushSubscription> findByUserId(String userId);
 
-    void deleteByUserIdAndEndpoint(Long userId, String endpoint);
+    void deleteByUserIdAndEndpoint(String userId, String endpoint);
 
-    boolean existsByUserIdAndEndpoint(Long userId, String endpoint);
+    boolean existsByUserIdAndEndpoint(String userId, String endpoint);
 }
