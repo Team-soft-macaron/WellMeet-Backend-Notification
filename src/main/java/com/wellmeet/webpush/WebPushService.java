@@ -7,7 +7,7 @@ import com.wellmeet.webpush.dto.SubscribeRequest;
 import com.wellmeet.webpush.dto.SubscribeResponse;
 import com.wellmeet.webpush.dto.TestPushRequest;
 import com.wellmeet.webpush.dto.UnsubscribeRequest;
-import com.wellmeet.webpush.infrastucture.WebPushSender;
+import com.wellmeet.webpush.infrastructure.WebPushSender;
 import com.wellmeet.webpush.repository.PushSubscriptionRepository;
 import java.util.List;
 import java.util.Optional;
