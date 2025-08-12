@@ -72,7 +72,7 @@ public class WebPushSender {
             Notification notification = new Notification(sub, payloadJson);
             pushService.send(notification);
         } catch (JoseException | GeneralSecurityException | IOException | ExecutionException | InterruptedException e) {
-            throw new WellMeetNotificationException(ErrorCode.INTERNAL_SERVER_ERROR);
+            throw new WellMeetNotificationException(ErrorCode.WEB_PUSH_SEND_FAILED);
         }
     }
 }
