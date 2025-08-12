@@ -26,10 +26,11 @@ public class WebPushService {
     public SubscribeResponse subscribe(String userId, SubscribeRequest request) {
         List<PushSubscription> existingSubscriptions = pushSubscriptionRepository.findByUserId(userId);
         Optional<PushSubscription> pushSubscription = existingSubscriptions.stream()
-                .filter(subscription -> subscription.isSameEnpPoint(request.endpoint()))
+                .filter(subscription -> subscription.isSameEndpoint(request.endpoint()))
                 .findAny();
         if (pushSubscription.isPresent()) {
             PushSubscription subscription = pushSubscription.get();
+            subscription.update(request.toDomain(userId));
             return new SubscribeResponse(subscription);
         }
         PushSubscription subscription = request.toDomain(userId);
