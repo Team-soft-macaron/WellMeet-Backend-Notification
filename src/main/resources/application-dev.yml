@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: wellmeet-notification
+  config:
+    import: classpath:dev-secret.yml
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${secret.datasource.url}:${secret.datasource.port}/${secret.datasource.database}
+    username: ${secret.datasource.username}
+    password: ${secret.datasource.password}
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      platform: mysql
+      encoding: UTF-8
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${secret.mail.username}
+    password: ${secret.mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          timeout: 5000
+          connectiontimeout: 5000
+          writetimeout: 5000
+  kafka:
+    bootstrap-servers: ${secret.kafka.bootstrap-servers}
+    consumer:
+      group-id: ${secret.kafka.consumer.group-id}
+      auto-offset-reset: ${secret.kafka.consumer.auto-offset-reset}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+cors:
+  origin: http://localhost:5173
+
+vapid:
+  public-key: ${secret.vapid.public-key}
+  private-key: ${secret.vapid.private-key}
+  subject: ${secret.vapid.subject}

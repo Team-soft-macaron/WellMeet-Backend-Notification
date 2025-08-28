@@ -68,7 +68,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setting dev-secret.yml
+      - name: Setting local-secret.yml
         run: |
           echo "${{ secrets.LOCAL_SECRET_YML }}" > ./src/main/resources/local-secret.yml
 
