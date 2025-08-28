@@ -42,7 +42,7 @@ class WebPushServiceTest extends BaseServiceTest {
         }
 
         @Test
-        void 동일한_유저_아이디와_엔드포인트로_구독하면_기존_구독을_반환한다() {
+        void 동일한_유저_아이디와_엔드포인트로_구독하면_기존_구독을_업데이트한다() {
             String userId = UUID.randomUUID().toString();
             String endpoint = "endpoint";
             PushSubscription pushSubscription = new PushSubscription(userId, endpoint, "p256dh", "auth");
@@ -55,8 +55,8 @@ class WebPushServiceTest extends BaseServiceTest {
             assertAll(
                     () -> assertThat(subscription.getUserId()).isEqualTo(userId),
                     () -> assertThat(subscription.getEndpoint()).isEqualTo(endpoint),
-                    () -> assertThat(subscription.getP256dh()).isEqualTo(pushSubscription.getP256dh()),
-                    () -> assertThat(subscription.getAuth()).isEqualTo(pushSubscription.getAuth())
+                    () -> assertThat(subscription.getP256dh()).isEqualTo(request.p256dh()),
+                    () -> assertThat(subscription.getAuth()).isEqualTo(request.auth())
             );
         }
     }
