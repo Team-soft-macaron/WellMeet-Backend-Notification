@@ -60,7 +60,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: dev-owner
+    runs-on: dev
 
     steps:
       - name: Download artifact file
