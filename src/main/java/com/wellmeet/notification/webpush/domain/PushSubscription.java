@@ -1,4 +1,4 @@
-package com.wellmeet.webpush.domain;
+package com.wellmeet.notification.webpush.domain;
 
 import com.wellmeet.common.domain.BaseEntity;
 import jakarta.persistence.Entity;

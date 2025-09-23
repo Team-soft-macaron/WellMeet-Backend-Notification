@@ -1,4 +1,4 @@
-package com.wellmeet.webpush.dto;
+package com.wellmeet.notification.webpush.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

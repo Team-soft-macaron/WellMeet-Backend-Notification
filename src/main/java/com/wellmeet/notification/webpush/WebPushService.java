@@ -1,14 +1,14 @@
-package com.wellmeet.webpush;
+package com.wellmeet.notification.webpush;
 
 import com.wellmeet.exception.ErrorCode;
 import com.wellmeet.exception.WellMeetNotificationException;
-import com.wellmeet.webpush.domain.PushSubscription;
-import com.wellmeet.webpush.dto.SubscribeRequest;
-import com.wellmeet.webpush.dto.SubscribeResponse;
-import com.wellmeet.webpush.dto.TestPushRequest;
-import com.wellmeet.webpush.dto.UnsubscribeRequest;
-import com.wellmeet.webpush.infrastructure.WebPushSender;
-import com.wellmeet.webpush.repository.PushSubscriptionRepository;
+import com.wellmeet.notification.webpush.domain.PushSubscription;
+import com.wellmeet.notification.webpush.dto.SubscribeRequest;
+import com.wellmeet.notification.webpush.dto.SubscribeResponse;
+import com.wellmeet.notification.webpush.dto.TestPushRequest;
+import com.wellmeet.notification.webpush.dto.UnsubscribeRequest;
+import com.wellmeet.notification.webpush.infrastructure.WebPushSender;
+import com.wellmeet.notification.webpush.repository.PushSubscriptionRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -28,11 +28,13 @@ public class WebPushService {
         Optional<PushSubscription> pushSubscription = existingSubscriptions.stream()
                 .filter(subscription -> subscription.isSameEndpoint(request.endpoint()))
                 .findAny();
+
         if (pushSubscription.isPresent()) {
             PushSubscription subscription = pushSubscription.get();
             subscription.update(request.toDomain(userId));
             return new SubscribeResponse(subscription);
         }
+        
         PushSubscription subscription = request.toDomain(userId);
         PushSubscription savedSubscription = pushSubscriptionRepository.save(subscription);
         return new SubscribeResponse(savedSubscription);

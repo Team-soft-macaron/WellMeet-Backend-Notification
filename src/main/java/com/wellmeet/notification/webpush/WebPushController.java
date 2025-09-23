@@ -1,9 +1,9 @@
-package com.wellmeet.webpush;
+package com.wellmeet.notification.webpush;
 
-import com.wellmeet.webpush.dto.SubscribeRequest;
-import com.wellmeet.webpush.dto.SubscribeResponse;
-import com.wellmeet.webpush.dto.TestPushRequest;
-import com.wellmeet.webpush.dto.UnsubscribeRequest;
+import com.wellmeet.notification.webpush.dto.SubscribeRequest;
+import com.wellmeet.notification.webpush.dto.SubscribeResponse;
+import com.wellmeet.notification.webpush.dto.TestPushRequest;
+import com.wellmeet.notification.webpush.dto.UnsubscribeRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

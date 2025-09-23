@@ -1,6 +1,6 @@
 package com.wellmeet;
 
-import com.wellmeet.webpush.repository.PushSubscriptionRepository;
+import com.wellmeet.notification.webpush.repository.PushSubscriptionRepository;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;

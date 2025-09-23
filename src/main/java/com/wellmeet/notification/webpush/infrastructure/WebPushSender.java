@@ -1,11 +1,11 @@
-package com.wellmeet.webpush.infrastructure;
+package com.wellmeet.notification.webpush.infrastructure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wellmeet.config.VapidConfig;
 import com.wellmeet.exception.ErrorCode;
 import com.wellmeet.exception.WellMeetNotificationException;
-import com.wellmeet.webpush.domain.PushSubscription;
-import com.wellmeet.webpush.dto.TestPushRequest;
+import com.wellmeet.notification.webpush.domain.PushSubscription;
+import com.wellmeet.notification.webpush.dto.TestPushRequest;
 import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.security.GeneralSecurityException;

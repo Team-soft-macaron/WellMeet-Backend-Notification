@@ -1,6 +1,6 @@
-package com.wellmeet.webpush.dto;
+package com.wellmeet.notification.webpush.dto;
 
-import com.wellmeet.webpush.domain.PushSubscription;
+import com.wellmeet.notification.webpush.domain.PushSubscription;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 

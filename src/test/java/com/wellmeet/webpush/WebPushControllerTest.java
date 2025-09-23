@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.wellmeet.BaseControllerTest;
 import com.wellmeet.fixture.NullAndEmptyAndBlankSource;
-import com.wellmeet.webpush.domain.PushSubscription;
-import com.wellmeet.webpush.dto.SubscribeRequest;
-import com.wellmeet.webpush.dto.SubscribeResponse;
-import com.wellmeet.webpush.dto.TestPushRequest;
-import com.wellmeet.webpush.dto.UnsubscribeRequest;
+import com.wellmeet.notification.webpush.domain.PushSubscription;
+import com.wellmeet.notification.webpush.dto.SubscribeRequest;
+import com.wellmeet.notification.webpush.dto.SubscribeResponse;
+import com.wellmeet.notification.webpush.dto.TestPushRequest;
+import com.wellmeet.notification.webpush.dto.UnsubscribeRequest;
 import io.restassured.http.ContentType;
 import java.util.Map;
 import org.junit.jupiter.api.Nested;
