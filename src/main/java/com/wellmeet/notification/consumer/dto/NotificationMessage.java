@@ -1,5 +1,6 @@
 package com.wellmeet.notification.consumer.dto;
 
+import java.util.Map;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,5 +10,5 @@ public class NotificationMessage {
 
     private MessageHeader header;
     private NotificationInfo notification;
-    private NotificationPayload payload;
+    private Map<String, Object> payload;
 }

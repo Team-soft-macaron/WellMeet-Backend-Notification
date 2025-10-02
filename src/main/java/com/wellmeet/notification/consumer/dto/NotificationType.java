@@ -7,9 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum NotificationType {
 
-    RESERVATION_CREATED("reservation.created", "HIGH", "wellmeet-user-server");
+    RESERVATION_CREATED("reservation.created", "wellmeet-user-server");
 
     private final String name;
-    private final String category;
     private final String source;
 }
