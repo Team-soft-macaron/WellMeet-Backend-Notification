@@ -9,14 +9,16 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class OwnerNotificationEnabled {
+public class UserNotificationEnabled {
 
     @Id
-    private String ownerId;
-    private boolean reservationRequestWebPushEnabled;
-    private boolean reservationRequestEmailEnabled;
+    private String userId;
+    private boolean reservationConfirmWebPushEnabled;
+    private boolean reservationConfirmEmailEnabled;
     private boolean reservationCancelWebPushEnabled;
     private boolean reservationCancelEmailEnabled;
+    private boolean reminderWebPushEnabled;
+    private boolean reminderEmailEnabled;
     private boolean promotionWebPushEnabled;
     private boolean promotionEmailEnabled;
 }
