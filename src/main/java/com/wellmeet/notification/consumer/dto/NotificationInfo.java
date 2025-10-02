@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NotificationInfo {
 
-    private String type;
+    private NotificationType type;
     private String recipient;
-    private String recipientType;
 }

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wellmeet.config.VapidConfig;
 import com.wellmeet.exception.ErrorCode;
 import com.wellmeet.exception.WellMeetNotificationException;
+import com.wellmeet.notification.Sender;
+import com.wellmeet.notification.consumer.dto.NotificationMessage;
+import com.wellmeet.notification.domain.NotificationChannel;
 import com.wellmeet.notification.webpush.domain.PushSubscription;
 import com.wellmeet.notification.webpush.dto.TestPushRequest;
 import jakarta.annotation.PostConstruct;
@@ -24,7 +27,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class WebPushSender {
+public class WebPushSender implements Sender {
 
     private final VapidConfig vapidConfig;
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -41,6 +44,16 @@ public class WebPushSender {
         } catch (Exception e) {
             throw new WellMeetNotificationException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Override
+    public boolean isEnabled(NotificationChannel channel) {
+        return NotificationChannel.WEB_PUSH == channel;
+    }
+
+    @Override
+    public void send(NotificationMessage message) {
+
     }
 
     public void send(PushSubscription subscription, TestPushRequest request) {
