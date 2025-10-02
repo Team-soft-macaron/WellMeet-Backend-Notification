@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class WebPushService {
 
     private final PushSubscriptionRepository pushSubscriptionRepository;
-    private final WebPushSender pushService;
+    private final WebPushSender webPushSender;
 
     @Transactional
     public SubscribeResponse subscribe(String userId, SubscribeRequest request) {
@@ -34,7 +34,7 @@ public class WebPushService {
             subscription.update(request.toDomain(userId));
             return new SubscribeResponse(subscription);
         }
-        
+
         PushSubscription subscription = request.toDomain(userId);
         PushSubscription savedSubscription = pushSubscriptionRepository.save(subscription);
         return new SubscribeResponse(savedSubscription);
@@ -46,7 +46,7 @@ public class WebPushService {
             throw new WellMeetNotificationException(ErrorCode.SUBSCRIPTION_NOT_FOUND);
         }
 
-        subscriptions.forEach(subscription -> pushService.send(subscription, request));
+        subscriptions.forEach(subscription -> webPushSender.send(subscription, request));
     }
 
     @Transactional

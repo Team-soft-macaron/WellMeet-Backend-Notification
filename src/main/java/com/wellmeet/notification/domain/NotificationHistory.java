@@ -16,4 +16,10 @@ public class NotificationHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String userId;
+
+    public NotificationHistory(String userId) {
+        this.userId = userId;
+    }
 }

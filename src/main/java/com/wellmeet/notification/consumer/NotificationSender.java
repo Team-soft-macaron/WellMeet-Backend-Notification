@@ -3,6 +3,7 @@ package com.wellmeet.notification.consumer;
 import com.wellmeet.notification.Sender;
 import com.wellmeet.notification.consumer.dto.NotificationMessage;
 import com.wellmeet.notification.domain.NotificationEnabled;
+import com.wellmeet.notification.domain.NotificationHistory;
 import com.wellmeet.notification.repository.NotificationHistoryRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class NotificationSender {
                     .findFirst()
                     .orElseThrow();
             sender.send(message);
+            notificationHistoryRepository.save(new NotificationHistory(message.getNotification().getRecipient()));
         }
     }
 }
