@@ -16,7 +16,7 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류가 발생했습니다."),
     CORS_ORIGIN_EMPTY(HttpStatus.INTERNAL_SERVER_ERROR, "CORS Origin 은 적어도 한 개 있어야 합니다"),
     WEB_PUSH_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "웹 푸시 전송에 실패했습니다."),
-    ;
+    SENDER_NOT_FOUND(HttpStatus.BAD_REQUEST, "알림을 발송할 수 없습니다.");
 
     private final HttpStatus status;
     private final String message;
