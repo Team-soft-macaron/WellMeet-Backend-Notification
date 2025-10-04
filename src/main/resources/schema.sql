@@ -12,10 +12,12 @@ CREATE TABLE IF NOT EXISTS push_subscription (
 );
 
 CREATE TABLE IF NOT EXISTS notification_enabled (
-    user_id VARCHAR(255) PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
     type VARCHAR(50) NOT NULL,
     channel VARCHAR(50) NOT NULL,
     enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    INDEX idx_user_id (user_id),
     INDEX idx_type_channel (type, channel)
 );
 
