@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS notification_enabled (
 CREATE TABLE IF NOT EXISTS notification_history (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id VARCHAR(255) NOT NULL,
+    read_status BOOLEAN NOT NULL DEFAULT FALSE,
+    contents TEXT,
     created_at DATETIME(6),
     updated_at DATETIME(6),
     INDEX idx_user_id (user_id),

@@ -11,4 +11,8 @@ public class NotificationMessage {
     private MessageHeader header;
     private NotificationInfo notification;
     private Map<String, Object> payload;
+
+    public String getRecipient() {
+        return notification.getRecipient();
+    }
 }

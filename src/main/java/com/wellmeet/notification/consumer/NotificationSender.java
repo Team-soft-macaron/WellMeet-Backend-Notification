@@ -18,7 +18,9 @@ public class NotificationSender {
 
     public void send(NotificationMessage message, List<NotificationEnabled> enables) {
         for (NotificationEnabled enabled : enables) {
-            notificationHistoryRepository.save(new NotificationHistory(message.getNotification().getRecipient()));
+            NotificationHistory history = new NotificationHistory(message.getRecipient(),
+                    message.getPayload().toString());
+            notificationHistoryRepository.save(history);
             Sender sender = senders.stream()
                     .filter(low -> low.isEnabled(enabled.getChannel()))
                     .findFirst()
