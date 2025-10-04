@@ -19,10 +19,11 @@ public class NotificationConsumer {
 
     @KafkaListener(topics = "notification", groupId = "notification-group")
     public void consume(NotificationMessage message) {
-        List<NotificationEnabled> enableds = notificationEnabledRepository.findByUserIdAndType(
+        log.info("Received message: {}", message);
+        List<NotificationEnabled> enables = notificationEnabledRepository.findByUserIdAndType(
                 message.getNotification().getRecipient(),
                 message.getNotification().getType()
         );
-        notificationSender.send(message, enableds);
+        notificationSender.send(message, enables);
     }
 }
