@@ -7,10 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import com.wellmeet.BaseServiceTest;
 import com.wellmeet.exception.ErrorCode;
 import com.wellmeet.exception.WellMeetNotificationException;
-import com.wellmeet.webpush.domain.PushSubscription;
-import com.wellmeet.webpush.dto.SubscribeRequest;
-import com.wellmeet.webpush.dto.SubscribeResponse;
-import com.wellmeet.webpush.dto.UnsubscribeRequest;
+import com.wellmeet.notification.webpush.WebPushService;
+import com.wellmeet.notification.webpush.domain.PushSubscription;
+import com.wellmeet.notification.webpush.dto.SubscribeRequest;
+import com.wellmeet.notification.webpush.dto.SubscribeResponse;
+import com.wellmeet.notification.webpush.dto.UnsubscribeRequest;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Nested;
@@ -42,7 +43,7 @@ class WebPushServiceTest extends BaseServiceTest {
         }
 
         @Test
-        void 동일한_유저_아이디와_엔드포인트로_구독하면_기존_구독을_반환한다() {
+        void 동일한_유저_아이디와_엔드포인트로_구독하면_기존_구독을_업데이트한다() {
             String userId = UUID.randomUUID().toString();
             String endpoint = "endpoint";
             PushSubscription pushSubscription = new PushSubscription(userId, endpoint, "p256dh", "auth");
@@ -55,8 +56,8 @@ class WebPushServiceTest extends BaseServiceTest {
             assertAll(
                     () -> assertThat(subscription.getUserId()).isEqualTo(userId),
                     () -> assertThat(subscription.getEndpoint()).isEqualTo(endpoint),
-                    () -> assertThat(subscription.getP256dh()).isEqualTo(pushSubscription.getP256dh()),
-                    () -> assertThat(subscription.getAuth()).isEqualTo(pushSubscription.getAuth())
+                    () -> assertThat(subscription.getP256dh()).isEqualTo(request.p256dh()),
+                    () -> assertThat(subscription.getAuth()).isEqualTo(request.auth())
             );
         }
     }

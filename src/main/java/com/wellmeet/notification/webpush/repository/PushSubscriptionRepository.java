@@ -1,6 +1,6 @@
-package com.wellmeet.webpush.repository;
+package com.wellmeet.notification.webpush.repository;
 
-import com.wellmeet.webpush.domain.PushSubscription;
+import com.wellmeet.notification.webpush.domain.PushSubscription;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

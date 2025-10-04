@@ -1,6 +1,6 @@
-package com.wellmeet.webpush.dto;
+package com.wellmeet.notification.webpush.dto;
 
-import com.wellmeet.webpush.domain.PushSubscription;
+import com.wellmeet.notification.webpush.domain.PushSubscription;
 
 public record SubscribeResponse(
         Long subscriptionId,

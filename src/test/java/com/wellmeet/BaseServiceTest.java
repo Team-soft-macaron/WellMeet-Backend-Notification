@@ -1,6 +1,6 @@
 package com.wellmeet;
 
-import com.wellmeet.webpush.repository.PushSubscriptionRepository;
+import com.wellmeet.notification.webpush.repository.PushSubscriptionRepository;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
