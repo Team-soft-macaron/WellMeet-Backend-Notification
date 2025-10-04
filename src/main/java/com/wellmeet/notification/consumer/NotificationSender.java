@@ -18,12 +18,12 @@ public class NotificationSender {
 
     public void send(NotificationMessage message, List<NotificationEnabled> enables) {
         for (NotificationEnabled enabled : enables) {
+            notificationHistoryRepository.save(new NotificationHistory(message.getNotification().getRecipient()));
             Sender sender = senders.stream()
                     .filter(low -> low.isEnabled(enabled.getChannel()))
                     .findFirst()
                     .orElseThrow();
             sender.send(message);
-            notificationHistoryRepository.save(new NotificationHistory(message.getNotification().getRecipient()));
         }
     }
 }
