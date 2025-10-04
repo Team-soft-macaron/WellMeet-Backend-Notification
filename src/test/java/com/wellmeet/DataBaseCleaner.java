@@ -40,7 +40,7 @@ public class DataBaseCleaner implements BeforeEachCallback {
         String tableNameSelectQuery = """
                 SELECT TABLE_NAME
                 FROM INFORMATION_SCHEMA.TABLES
-                WHERE TABLE_SCHEMA = 'test'
+                WHERE TABLE_SCHEMA = 'wellmeet_noti_test'
                 AND TABLE_TYPE = 'BASE TABLE'
                 """;
 
