@@ -34,7 +34,6 @@ public class KafkaConfig {
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         props.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "com.wellmeet.consumer.dto");
         props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, NotificationMessage.class);
         return new DefaultKafkaConsumerFactory<>(props);
     }
