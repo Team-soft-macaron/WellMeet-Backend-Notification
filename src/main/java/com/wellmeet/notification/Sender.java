@@ -5,7 +5,7 @@ import com.wellmeet.notification.domain.NotificationChannel;
 
 public interface Sender {
 
-    public boolean isEnabled(NotificationChannel channel);
+    boolean isEnabled(NotificationChannel channel);
 
-    public void send(NotificationMessage message);
+    void send(NotificationMessage message);
 }
