@@ -41,7 +41,7 @@ spring:
       group-id: ${secret.kafka.consumer.group-id}
       auto-offset-reset: ${secret.kafka.consumer.auto-offset-reset}
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.JsonSerializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 
 cors:
   origin: http://localhost:5173
