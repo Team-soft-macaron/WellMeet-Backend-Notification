@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - "develop"
-      - "SCRUM-117"
 
 permissions:
   contents: read
