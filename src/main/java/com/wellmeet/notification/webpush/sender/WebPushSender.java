@@ -1,7 +1,6 @@
-package com.wellmeet.notification.webpush.infrastructure;
+package com.wellmeet.notification.webpush.sender;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wellmeet.config.VapidConfig;
 import com.wellmeet.exception.ErrorCode;
 import com.wellmeet.exception.WellMeetNotificationException;
 import com.wellmeet.notification.Sender;
@@ -10,10 +9,8 @@ import com.wellmeet.notification.domain.NotificationChannel;
 import com.wellmeet.notification.webpush.domain.PushSubscription;
 import com.wellmeet.notification.webpush.dto.TestPushRequest;
 import com.wellmeet.notification.webpush.repository.PushSubscriptionRepository;
-import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.security.Security;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +20,6 @@ import nl.martijndwars.webpush.Notification;
 import nl.martijndwars.webpush.PushService;
 import nl.martijndwars.webpush.Subscription;
 import nl.martijndwars.webpush.Subscription.Keys;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jose4j.lang.JoseException;
 import org.springframework.stereotype.Service;
 
@@ -32,22 +28,8 @@ import org.springframework.stereotype.Service;
 public class WebPushSender implements Sender {
 
     private final PushSubscriptionRepository pushSubscriptionRepository;
-    private final VapidConfig vapidConfig;
+    private final PushService pushService;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private PushService pushService;
-
-    @PostConstruct
-    public void init() {
-        Security.addProvider(new BouncyCastleProvider());
-        try {
-            pushService = new PushService();
-            pushService.setPublicKey(vapidConfig.getPublicKey());
-            pushService.setPrivateKey(vapidConfig.getPrivateKey());
-            pushService.setSubject(vapidConfig.getSubject());
-        } catch (Exception e) {
-            throw new WellMeetNotificationException(ErrorCode.INTERNAL_SERVER_ERROR);
-        }
-    }
 
     @Override
     public boolean isEnabled(NotificationChannel channel) {
