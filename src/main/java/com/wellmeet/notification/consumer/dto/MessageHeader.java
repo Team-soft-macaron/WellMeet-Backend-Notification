@@ -10,5 +10,4 @@ public class MessageHeader {
 
     private String messageId;
     private LocalDateTime timestamp;
-    private String source;
 }
