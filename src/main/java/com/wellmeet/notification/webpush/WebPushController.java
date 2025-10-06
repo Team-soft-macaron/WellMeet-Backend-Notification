@@ -2,7 +2,6 @@ package com.wellmeet.notification.webpush;
 
 import com.wellmeet.notification.webpush.dto.SubscribeRequest;
 import com.wellmeet.notification.webpush.dto.SubscribeResponse;
-import com.wellmeet.notification.webpush.dto.TestPushRequest;
 import com.wellmeet.notification.webpush.dto.UnsubscribeRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,14 +28,6 @@ public class WebPushController {
             @RequestParam String userId
     ) {
         return webPushService.subscribe(userId, subscribeRequest);
-    }
-
-    @PostMapping("/test-push")
-    public void testPush(
-            @Valid @RequestBody TestPushRequest testPushRequest,
-            @RequestParam String userId
-    ) {
-        webPushService.sendTestPush(userId, testPushRequest);
     }
 
     @DeleteMapping("/unsubscribe")

@@ -6,8 +6,9 @@ import com.wellmeet.exception.WellMeetNotificationException;
 import com.wellmeet.notification.Sender;
 import com.wellmeet.notification.consumer.dto.NotificationMessage;
 import com.wellmeet.notification.domain.NotificationChannel;
+import com.wellmeet.notification.template.NotificationTemplateData;
+import com.wellmeet.notification.template.NotificationTemplateFactory;
 import com.wellmeet.notification.webpush.domain.PushSubscription;
-import com.wellmeet.notification.webpush.dto.TestPushRequest;
 import com.wellmeet.notification.webpush.repository.PushSubscriptionRepository;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -29,6 +30,7 @@ public class WebPushSender implements Sender {
 
     private final PushSubscriptionRepository pushSubscriptionRepository;
     private final PushService pushService;
+    private final NotificationTemplateFactory templateFactory;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -53,39 +55,21 @@ public class WebPushSender implements Sender {
     }
 
     private Map<String, Object> getNotificationPayload(NotificationMessage message) {
+        NotificationTemplateData templateData = templateFactory.createTemplateData(
+                message.getNotification().getType(),
+                message.getPayload()
+        );
+
         Map<String, Object> notificationPayload = new HashMap<>();
-        notificationPayload.put("title", "WellMeet 알림");
-        notificationPayload.put("body", message.getPayload());
+        notificationPayload.put("title", templateData.title());
+        notificationPayload.put("body", templateData.body());
         notificationPayload.put("icon", "/icon-192x192.png");
         notificationPayload.put("badge", "/badge-72x72.png");
         notificationPayload.put("vibrate", new int[]{100, 50, 100});
-        notificationPayload.put("requireInteraction", false);
+        notificationPayload.put("requireInteraction", templateData.requireInteraction());
 
         Map<String, Object> defaultData = new HashMap<>();
-        defaultData.put("url", "/notifications");
-        defaultData.put("timestamp", System.currentTimeMillis());
-        notificationPayload.put("data", defaultData);
-        return notificationPayload;
-    }
-
-    public void send(PushSubscription subscription, TestPushRequest request) {
-        Keys keys = new Keys(subscription.getP256dh(), subscription.getAuth());
-        Subscription sub = new Subscription(subscription.getEndpoint(), keys);
-        Map<String, Object> notificationPayload = getNotificationPayload(request);
-        webPushSend(notificationPayload, sub);
-    }
-
-    private Map<String, Object> getNotificationPayload(TestPushRequest request) {
-        Map<String, Object> notificationPayload = new HashMap<>();
-        notificationPayload.put("title", request.title());
-        notificationPayload.put("body", request.body());
-        notificationPayload.put("icon", "/icon-192x192.png");
-        notificationPayload.put("badge", "/badge-72x72.png");
-        notificationPayload.put("vibrate", new int[]{100, 50, 100});
-        notificationPayload.put("requireInteraction", false);
-
-        Map<String, Object> defaultData = new HashMap<>();
-        defaultData.put("url", "/notifications");
+        defaultData.put("url", templateData.url());
         defaultData.put("timestamp", System.currentTimeMillis());
         notificationPayload.put("data", defaultData);
         return notificationPayload;
