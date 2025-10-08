@@ -31,14 +31,11 @@ public class PushSubscription extends BaseEntity {
     @NotNull
     private String auth;
 
-    private boolean active;
-
     public PushSubscription(String userId, String endpoint, String p256dh, String auth) {
         this.userId = userId;
         this.endpoint = endpoint;
         this.p256dh = p256dh;
         this.auth = auth;
-        this.active = true;
     }
 
     public void update(PushSubscription updatedSubscription) {

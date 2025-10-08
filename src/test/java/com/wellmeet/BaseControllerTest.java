@@ -1,5 +1,6 @@
 package com.wellmeet;
 
+import com.wellmeet.config.EmailTestConfig;
 import com.wellmeet.config.WebPushTestConfig;
 import com.wellmeet.notification.webpush.repository.PushSubscriptionRepository;
 import io.restassured.RestAssured;
@@ -18,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 @ExtendWith(DataBaseCleaner.class)
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Import(WebPushTestConfig.class)
+@Import({WebPushTestConfig.class, EmailTestConfig.class})
 public abstract class BaseControllerTest {
 
     @Autowired
