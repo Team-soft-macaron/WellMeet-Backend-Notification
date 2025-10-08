@@ -5,10 +5,12 @@ import com.wellmeet.exception.WellMeetNotificationException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 
+@Slf4j
 @Component
 public class MailViewRenderer {
 
@@ -24,6 +26,7 @@ public class MailViewRenderer {
             ClassPathResource resource = new ClassPathResource(TEMPLATE_BASE_PATH + templateName);
             return StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
         } catch (IOException e) {
+            log.error("이메일 템플릿 로딩에 실패했습니다. templateName: {}", templateName, e);
             throw new WellMeetNotificationException(ErrorCode.EMAIL_SEND_FAILED);
         }
     }
