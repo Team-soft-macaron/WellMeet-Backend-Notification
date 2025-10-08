@@ -1,10 +1,11 @@
+-- Initial schema for wellmeet-notification service
+
 CREATE TABLE IF NOT EXISTS push_subscription (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id VARCHAR(255) NOT NULL,
     endpoint VARCHAR(500) NOT NULL,
     p256dh VARCHAR(255) NOT NULL,
     auth VARCHAR(255) NOT NULL,
-    active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at DATETIME(6) NOT NULL,
     updated_at DATETIME(6) NOT NULL,
     INDEX idx_user_id (user_id),
