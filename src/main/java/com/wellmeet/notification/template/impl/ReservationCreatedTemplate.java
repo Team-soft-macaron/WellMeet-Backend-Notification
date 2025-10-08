@@ -27,9 +27,4 @@ public class ReservationCreatedTemplate implements NotificationTemplate {
 
         return new NotificationTemplateData(title, body, url, true);
     }
-
-    private String getStringOrDefault(Map<String, Object> payload, String key, String defaultValue) {
-        Object value = payload.get(key);
-        return value != null ? value.toString() : defaultValue;
-    }
 }
