@@ -5,10 +5,8 @@ import com.wellmeet.exception.WellMeetNotificationException;
 import com.wellmeet.notification.webpush.domain.PushSubscription;
 import com.wellmeet.notification.webpush.dto.SubscribeRequest;
 import com.wellmeet.notification.webpush.dto.SubscribeResponse;
-import com.wellmeet.notification.webpush.dto.TestPushRequest;
 import com.wellmeet.notification.webpush.dto.UnsubscribeRequest;
 import com.wellmeet.notification.webpush.repository.PushSubscriptionRepository;
-import com.wellmeet.notification.webpush.sender.WebPushSender;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class WebPushService {
 
     private final PushSubscriptionRepository pushSubscriptionRepository;
-    private final WebPushSender webPushSender;
 
     @Transactional
     public SubscribeResponse subscribe(String userId, SubscribeRequest request) {
@@ -38,15 +35,6 @@ public class WebPushService {
         PushSubscription subscription = request.toDomain(userId);
         PushSubscription savedSubscription = pushSubscriptionRepository.save(subscription);
         return new SubscribeResponse(savedSubscription);
-    }
-
-    public void sendTestPush(String userId, TestPushRequest request) {
-        List<PushSubscription> subscriptions = pushSubscriptionRepository.findByUserId(userId);
-        if (subscriptions.isEmpty()) {
-            throw new WellMeetNotificationException(ErrorCode.SUBSCRIPTION_NOT_FOUND);
-        }
-
-        subscriptions.forEach(subscription -> webPushSender.send(subscription, request));
     }
 
     @Transactional

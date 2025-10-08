@@ -8,10 +8,8 @@ import com.wellmeet.fixture.NullAndEmptyAndBlankSource;
 import com.wellmeet.notification.webpush.domain.PushSubscription;
 import com.wellmeet.notification.webpush.dto.SubscribeRequest;
 import com.wellmeet.notification.webpush.dto.SubscribeResponse;
-import com.wellmeet.notification.webpush.dto.TestPushRequest;
 import com.wellmeet.notification.webpush.dto.UnsubscribeRequest;
 import io.restassured.http.ContentType;
-import java.util.Map;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -78,54 +76,6 @@ class WebPushControllerTest extends BaseControllerTest {
                     .queryParam("userId", "1")
                     .body(request)
                     .when().post("/notification/subscribe")
-                    .then().statusCode(HttpStatus.BAD_REQUEST.value());
-        }
-    }
-
-    @Nested
-    class TestPush {
-
-        @ParameterizedTest
-        @NullAndEmptyAndBlankSource
-        void title은_개행글자_외_다른_글자가_포함되야_한다(String title) {
-            String userId = "1";
-            String body = "Test Body";
-            Map<String, Object> data = Map.of("key", "value");
-
-            given()
-                    .contentType(ContentType.JSON)
-                    .queryParam("userId", userId)
-                    .body(new TestPushRequest(title, body, data))
-                    .when().post("/notification/test-push")
-                    .then().statusCode(HttpStatus.BAD_REQUEST.value());
-        }
-
-        @ParameterizedTest
-        @NullAndEmptyAndBlankSource
-        void body는_개행글자_외_다른_글자가_포함되야_한다(String body) {
-            String userId = "1";
-            String title = "Test Title";
-            Map<String, Object> data = Map.of("key", "value");
-
-            given()
-                    .contentType(ContentType.JSON)
-                    .queryParam("userId", userId)
-                    .body(new TestPushRequest(title, body, data))
-                    .when().post("/notification/test-push")
-                    .then().statusCode(HttpStatus.BAD_REQUEST.value());
-        }
-
-        @Test
-        void data는_null이_아니어야_한다() {
-            String userId = "1";
-            String title = "Test Title";
-            String body = "Test Body";
-
-            given()
-                    .contentType(ContentType.JSON)
-                    .queryParam("userId", userId)
-                    .body(new TestPushRequest(title, body, null))
-                    .when().post("/notification/test-push")
                     .then().statusCode(HttpStatus.BAD_REQUEST.value());
         }
     }
