@@ -1,5 +1,6 @@
 package com.wellmeet.email;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -58,18 +59,17 @@ class EmailSenderTest {
 
         @Test
         void EMAIL_채널이면_true를_반환한다() {
-            assertThatCode(() -> {
-                boolean enabled = emailSender.isEnabled(NotificationChannel.EMAIL);
-                assert enabled;
-            }).doesNotThrowAnyException();
+            boolean enabled = emailSender.isEnabled(NotificationChannel.EMAIL);
+
+            assertThat(enabled).isTrue();
+
         }
 
         @Test
         void WEB_PUSH_채널이면_false를_반환한다() {
-            assertThatCode(() -> {
-                boolean enabled = emailSender.isEnabled(NotificationChannel.WEB_PUSH);
-                assert !enabled;
-            }).doesNotThrowAnyException();
+            boolean enabled = emailSender.isEnabled(NotificationChannel.WEB_PUSH);
+            
+            assertThat(enabled).isFalse();
         }
     }
 

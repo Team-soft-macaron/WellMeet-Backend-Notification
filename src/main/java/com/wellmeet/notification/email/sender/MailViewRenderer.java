@@ -3,8 +3,11 @@ package com.wellmeet.notification.email.sender;
 import com.wellmeet.exception.ErrorCode;
 import com.wellmeet.exception.WellMeetNotificationException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -15,6 +18,7 @@ import org.springframework.util.StreamUtils;
 public class MailViewRenderer {
 
     private static final String TEMPLATE_BASE_PATH = "templates/";
+    private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\{([^}]+)\\}");
 
     public String render(String templateName, Map<String, String> variables) {
         String template = loadTemplate(templateName);
@@ -22,9 +26,9 @@ public class MailViewRenderer {
     }
 
     private String loadTemplate(String templateName) {
-        try {
-            ClassPathResource resource = new ClassPathResource(TEMPLATE_BASE_PATH + templateName);
-            return StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
+        ClassPathResource resource = new ClassPathResource(TEMPLATE_BASE_PATH + templateName);
+        try (InputStream inputStream = resource.getInputStream()) {
+            return StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
         } catch (IOException e) {
             log.error("이메일 템플릿 로딩에 실패했습니다. templateName: {}", templateName, e);
             throw new WellMeetNotificationException(ErrorCode.EMAIL_SEND_FAILED);
@@ -32,10 +36,16 @@ public class MailViewRenderer {
     }
 
     private String replacePlaceholders(String template, Map<String, String> variables) {
-        String result = template;
-        for (Map.Entry<String, String> entry : variables.entrySet()) {
-            result = result.replace("{" + entry.getKey() + "}", entry.getValue());
+        Matcher matcher = PLACEHOLDER_PATTERN.matcher(template);
+        StringBuilder result = new StringBuilder();
+
+        while (matcher.find()) {
+            String key = matcher.group(1);
+            String value = variables.getOrDefault(key, matcher.group(0));
+            matcher.appendReplacement(result, Matcher.quoteReplacement(value));
         }
-        return result;
+        matcher.appendTail(result);
+
+        return result.toString();
     }
 }
