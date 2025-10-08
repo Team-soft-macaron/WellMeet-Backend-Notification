@@ -12,6 +12,12 @@ public class NotificationMessage {
     private NotificationInfo notification;
     private Map<String, Object> payload;
 
+    public NotificationMessage(MessageHeader header, NotificationInfo notification, Map<String, Object> payload) {
+        this.header = header;
+        this.notification = notification;
+        this.payload = payload;
+    }
+
     public String getRecipient() {
         return notification.getRecipient();
     }

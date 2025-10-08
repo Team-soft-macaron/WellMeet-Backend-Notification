@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ErrorCode {
 
+    EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "이메일 정보를 찾을 수 없습니다."),
     SUBSCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "구독 정보를 찾을 수 없습니다."),
 
     FIELD_ERROR(HttpStatus.BAD_REQUEST, "입력이 잘못되었습니다."),
@@ -16,6 +17,7 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류가 발생했습니다."),
     CORS_ORIGIN_EMPTY(HttpStatus.INTERNAL_SERVER_ERROR, "CORS Origin 은 적어도 한 개 있어야 합니다"),
     WEB_PUSH_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "웹 푸시 전송에 실패했습니다."),
+    EMAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "이메일 전송에 실패했습니다."),
     SENDER_NOT_FOUND(HttpStatus.BAD_REQUEST, "알림을 발송할 수 없습니다."),
     TEMPLATE_NOT_FOUND(HttpStatus.INTERNAL_SERVER_ERROR, "알림 템플릿을 찾을 수 없습니다.");
 
