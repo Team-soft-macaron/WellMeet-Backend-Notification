@@ -124,7 +124,7 @@ class EmailSenderTest {
 
             assertThatThrownBy(() -> emailSender.send(notificationMessage))
                     .isInstanceOf(WellMeetNotificationException.class)
-                    .hasMessageContaining(ErrorCode.SUBSCRIPTION_NOT_FOUND.getMessage());
+                    .hasMessageContaining(ErrorCode.EMAIL_NOT_FOUND.getMessage());
         }
     }
 
